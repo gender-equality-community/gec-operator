@@ -50,7 +50,10 @@ func gcpServiceAccount(name string) string {
 func ServiceAccount(ctx context.Context, c client.Client, s *runtime.Scheme, app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterApp, labels, selectors map[string]string) (requeue time.Duration, err error) {
 	sa := serviceAccount(app, ca, labels)
 
-	ctrl.SetControllerReference(app, sa, s)
+	err = ctrl.SetControllerReference(app, sa, s)
+	if err != nil {
+		return
+	}
 
 	found := &corev1.ServiceAccount{}
 
@@ -96,7 +99,10 @@ func serviceAccount(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.Clust
 func ConfigMap(ctx context.Context, c client.Client, s *runtime.Scheme, app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterApp, labels, selectors map[string]string) (requeue time.Duration, err error) {
 	cm := configmap(app, ca, labels, ctx.Value("config").(map[string]string))
 
-	ctrl.SetControllerReference(app, cm, s)
+	err = ctrl.SetControllerReference(app, cm, s)
+	if err != nil {
+		return
+	}
 
 	found := &corev1.ConfigMap{}
 
@@ -137,7 +143,10 @@ func configmap(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterApp
 func Deployment(ctx context.Context, c client.Client, s *runtime.Scheme, app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterApp, labels, selectors map[string]string) (requeue time.Duration, err error) {
 	p := pvc(app, ca, labels)
 
-	ctrl.SetControllerReference(app, p, s)
+	err = ctrl.SetControllerReference(app, p, s)
+	if err != nil {
+		return
+	}
 
 	found := &corev1.PersistentVolumeClaim{}
 
@@ -260,7 +269,10 @@ func deployment(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterAp
 func PVC(ctx context.Context, c client.Client, s *runtime.Scheme, app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterApp, labels, selectors map[string]string) (requeue time.Duration, err error) {
 	p := pvc(app, ca, labels)
 
-	ctrl.SetControllerReference(app, p, s)
+	err = ctrl.SetControllerReference(app, p, s)
+	if err != nil {
+		return
+	}
 
 	found := &corev1.PersistentVolumeClaim{}
 
