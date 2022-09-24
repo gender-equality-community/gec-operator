@@ -1,0 +1,70 @@
+metadata:
+  labels:
+    app: gec-bot
+    cluster: my-test-cluster
+    sbom: https://github.com/gender-equality-community/gec-bot/releases/download/v0.0.1/bom.json
+    version: v0.0.1
+  name: my-test-cluster
+  namespace: testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gec-bot
+      cluster: my-test-cluster
+  template:
+    metadata:
+      labels:
+        app: gec-bot
+        cluster: my-test-cluster
+        sbom: https://github.com/gender-equality-community/gec-bot/releases/download/v0.0.1/bom.json
+        version: v0.0.1
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: my-test-cluster_gec-bot
+        - configMapRef:
+            name: my-test-cluster_gec-bot-override
+            optional: true
+        - secretRef:
+            name: my-test-cluster_gec-bot-override
+            optional: true
+        image: 'ghcr.io/gender-equality-community/gec-bot:v0.0.1'
+        imagePullPolicy: IfNotPresent
+        name: my-test-cluster_gec-bot
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          privileged: false
+          runAsNonRoot: true
+          readonlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+        volumeMounts:
+        - mountPath: /database/
+          name: my-test-cluster_gec-bot
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccount: my-test-cluster
+      serviceAccountName: my-test-cluster
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: my-test-cluster_gec-bot
+        persistentVolumeClaim:
+          claimName: my-test-cluster_gec-bot

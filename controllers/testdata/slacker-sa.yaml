@@ -1,0 +1,12 @@
+imagePullSecrets:
+- name: ecr-pull
+metadata:
+  annotations:
+    iam.gke.io/gcp-service-account: my-test-cluster@testing.iam.gserviceaccount.com
+  labels:
+    app: gec-slacker
+    cluster: my-test-cluster
+    sbom: https://github.com/gender-equality-community/gec-slacker/releases/download/v0.0.3/bom.json
+    version: v0.0.3
+  name: my-test-cluster_gec-slacker
+  namespace: testing

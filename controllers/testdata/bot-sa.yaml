@@ -1,0 +1,13 @@
+imagePullSecrets:
+- name: ecr-pull
+metadata:
+  annotations:
+    iam.gke.io/gcp-service-account: my-test-cluster@testing.iam.gserviceaccount.com
+  creationTimestamp: null
+  labels:
+    app: gec-bot
+    cluster: my-test-cluster
+    sbom: https://github.com/gender-equality-community/gec-bot/releases/download/v0.0.1/bom.json
+    version: v0.0.1
+  name: my-test-cluster_gec-bot
+  namespace: testing

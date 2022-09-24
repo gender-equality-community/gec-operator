@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: controller-config
+  namespace: gec-operator-system
+data:
+  PROJECT: "production"
+  VOLUME_TYPE: pvc

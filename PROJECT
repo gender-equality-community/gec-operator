@@ -1,0 +1,19 @@
+domain: gec
+layout:
+- go.kubebuilder.io/v3
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
+projectName: gec-operator
+repo: github.com/gender-equality-community/gec-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: gec
+  group: app
+  kind: Cluster
+  path: github.com/gender-equality-community/gec-operator/api/v1alpha1
+  version: v1alpha1
+version: "3"

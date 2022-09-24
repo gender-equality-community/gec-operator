@@ -1,0 +1,63 @@
+metadata:
+  labels:
+    app: gec-processor
+    cluster: my-test-cluster
+    sbom: https://github.com/gender-equality-community/gec-processor/releases/download/v0.0.2/bom.json
+    version: v0.0.2
+  name: my-test-cluster
+  namespace: testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gec-processor
+      cluster: my-test-cluster
+  template:
+    metadata:
+      labels:
+        app: gec-processor
+        cluster: my-test-cluster
+        sbom: https://github.com/gender-equality-community/gec-processor/releases/download/v0.0.2/bom.json
+        version: v0.0.2
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: my-test-cluster_gec-processor
+        - configMapRef:
+            name: my-test-cluster_gec-processor-override
+            optional: true
+        - secretRef:
+            name: my-test-cluster_gec-processor-override
+            optional: true
+        image: 'ghcr.io/gender-equality-community/gec-processor:v0.0.2'
+        imagePullPolicy: IfNotPresent
+        name: my-test-cluster_gec-processor
+        resources:
+          limits:
+            cpu: 1
+            memory: 4Gi
+          requests:
+            cpu: 1
+            memory: 4Gi
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          privileged: false
+          runAsNonRoot: true
+          readonlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccount: my-test-cluster
+      serviceAccountName: my-test-cluster
+      terminationGracePeriodSeconds: 30

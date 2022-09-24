@@ -1,0 +1,63 @@
+metadata:
+  labels:
+    app: gec-slacker
+    cluster: my-test-cluster
+    sbom: https://github.com/gender-equality-community/gec-slacker/releases/download/v0.0.3/bom.json
+    version: v0.0.3
+  name: my-test-cluster
+  namespace: testing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gec-slacker
+      cluster: my-test-cluster
+  template:
+    metadata:
+      labels:
+        app: gec-slacker
+        cluster: my-test-cluster
+        sbom: https://github.com/gender-equality-community/gec-slacker/releases/download/v0.0.3/bom.json
+        version: v0.0.3
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: my-test-cluster_gec-slacker
+        - configMapRef:
+            name: my-test-cluster_gec-slacker-override
+            optional: true
+        - secretRef:
+            name: my-test-cluster_gec-slacker-override
+            optional: true
+        image: 'ghcr.io/gender-equality-community/gec-slacker:v0.0.3'
+        imagePullPolicy: IfNotPresent
+        name: my-test-cluster_gec-slacker
+        resources:
+          limits:
+            cpu: 100m
+            memory: 64Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          privileged: false
+          runAsNonRoot: true
+          readonlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        tty: true
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: false
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      serviceAccount: my-test-cluster
+      serviceAccountName: my-test-cluster
+      terminationGracePeriodSeconds: 30

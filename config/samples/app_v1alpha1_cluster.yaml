@@ -1,0 +1,14 @@
+apiVersion: app.gec/v1alpha1
+kind: Cluster
+metadata:
+  name: cluster-sample
+  namespace: production
+spec:
+  bot:
+    version: v0.2.4
+  processor:
+    version: v0.1.0
+  slacker:
+    version: v0.1.1
+  config:
+    redis_url: redis-master:6379
