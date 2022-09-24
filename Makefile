@@ -236,3 +236,10 @@ catalog-push: ## Push a catalog image.
 
 .image:
 	echo $(IMG) > $@
+
+install:
+	.PHONY: deploy
+
+deployment.yaml: manifests kustomize
+	cd config/manager && $(KUSTOMIZE) edit set image controller=${IMG}
+	$(KUSTOMIZE) build config/default > $@

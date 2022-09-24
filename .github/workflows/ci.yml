@@ -120,4 +120,14 @@ jobs:
       run: |
         set -axe
 
-        VERSION=${GITHUB_REF##*/} make deploy
+        VERSION=${GITHUB_REF##*/} make deployment.yaml deploy
+
+    - name: Upload deployment config
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: deployment.yaml
+        asset_name: deployment.yaml
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "Provide deployment config"
