@@ -1,6 +1,3 @@
-//go:build types
-// +build types
-
 package controllers
 
 import (
