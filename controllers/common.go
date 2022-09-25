@@ -21,7 +21,6 @@ import (
 
 var (
 	Project string
-	Version string
 )
 
 type upserter func(context.Context, client.Client, *runtime.Scheme, *deploymentv1alpha1.Cluster, deploymentv1alpha1.ClusterApp, map[string]string, map[string]string) (time.Duration, error)
@@ -33,10 +32,6 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Printf("Project: %q\n", Project)
-	fmt.Printf("Version: %q\n", Version)
-	fmt.Println("--------")
 }
 
 func getenv(v string) (s string, err error) {
@@ -103,6 +98,8 @@ func serviceAccount(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.Clust
 
 func ConfigMap(ctx context.Context, c client.Client, s *runtime.Scheme, app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterApp, labels, selectors map[string]string) (requeue time.Duration, err error) {
 	cm := configmap(app, ca, labels, ctx.Value("config").(map[string]string))
+
+	fmt.Printf("%#v\n", cm)
 
 	err = ctrl.SetControllerReference(app, cm, s)
 	if err != nil {
