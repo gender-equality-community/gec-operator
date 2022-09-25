@@ -12,5 +12,5 @@ func GecMetaSelectors(app *appv1alpha1.Cluster) map[string]string {
 }
 
 func GecMetaLabels(app *appv1alpha1.Cluster) map[string]string {
-	return GecMetaLabels(app)
+	return GecMetaSelectors(app)
 }

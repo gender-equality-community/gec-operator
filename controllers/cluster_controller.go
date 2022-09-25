@@ -94,9 +94,8 @@ func (r *ClusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		"processor_sbom": app.Spec.Processor.SBOM(),
 		"slacker_bom":    app.Spec.Slacker.SBOM(),
 		"last_deploy":    time.Now().String(),
-		"version":        Version,
-		"project":        Project,
 	})
+
 	requeue, err = ConfigMap(ctx, r.Client, r.Scheme, app, appv1alpha1.ClusterMeta, GecMetaLabels(app), nil)
 
 	return ctrl.Result{RequeueAfter: requeue}, err

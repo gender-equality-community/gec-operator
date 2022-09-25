@@ -37,8 +37,6 @@ import (
 )
 
 var (
-	Version string
-
 	scheme   = runtime.NewScheme()
 	setupLog = ctrl.Log.WithName("setup")
 )
@@ -48,8 +46,6 @@ func init() {
 
 	utilruntime.Must(appv1alpha1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
-
-	controllers.Version = Version
 }
 
 func main() {
