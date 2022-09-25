@@ -76,17 +76,17 @@ func (r *ClusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		return ctrl.Result{}, err
 	}
 
-	requeue, err := r.Upsert(ctx, gecBotUpserters, appv1alpha1.ClusterBot, app, GecBotSelectors(app), GecBotLabels(app), map[string]string{"REDIS_ADDR": app.Spec.Config.RedisURL, "DATABASE": "/database/bot.db"})
+	requeue, err := r.Upsert(ctx, gecBotUpserters, appv1alpha1.ClusterBot, app, GecBotLabels(app), GecBotSelectors(app), map[string]string{"REDIS_ADDR": app.Spec.Config.RedisURL, "DATABASE": "/database/bot.db"})
 	if err != nil || requeue > 0 {
 		return ctrl.Result{RequeueAfter: requeue}, err
 	}
 
-	requeue, err = r.Upsert(ctx, gecProcessorUpserters, appv1alpha1.ClusterProcessor, app, GecProcessorSelectors(app), GecProcessorLabels(app), map[string]string{"REDIS_HOSTNAME": redisHostname(app.Spec.Config.RedisURL)})
+	requeue, err = r.Upsert(ctx, gecProcessorUpserters, appv1alpha1.ClusterProcessor, app, GecProcessorLabels(app), GecProcessorSelectors(app), map[string]string{"REDIS_HOSTNAME": redisHostname(app.Spec.Config.RedisURL)})
 	if err != nil || requeue > 0 {
 		return ctrl.Result{RequeueAfter: requeue}, err
 	}
 
-	requeue, err = r.Upsert(ctx, gecSlackerUpserters, appv1alpha1.ClusterSlacker, app, GecSlackerSelectors(app), GecSlackerLabels(app), map[string]string{"REDIS_ADDR": app.Spec.Config.RedisURL, "INCOMING_STREAM": "gec-processed", "OUTGOING_STREAM": "gec-responses"})
+	requeue, err = r.Upsert(ctx, gecSlackerUpserters, appv1alpha1.ClusterSlacker, app, GecSlackerLabels(app), GecSlackerSelectors(app), map[string]string{"REDIS_ADDR": app.Spec.Config.RedisURL, "INCOMING_STREAM": "gec-processed", "OUTGOING_STREAM": "gec-responses"})
 
 	// Write final status
 	ctx = context.WithValue(ctx, "config", map[string]string{
