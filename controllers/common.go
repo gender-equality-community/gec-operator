@@ -279,21 +279,6 @@ func PVC(ctx context.Context, c client.Client, s *runtime.Scheme, app *deploymen
 	err = c.Get(ctx, types.NamespacedName{Name: p.Name, Namespace: app.Namespace}, found)
 	if err != nil && errors.IsNotFound(err) {
 		err = c.Create(ctx, p)
-		if err != nil {
-			return
-		}
-
-		return
-	}
-
-	if !reflect.DeepEqual(found.Spec, p.Spec) {
-		diff := cmp.Diff(found.Spec, p.Spec)
-		fmt.Println(diff)
-
-		err = c.Update(ctx, p)
-		if err == nil {
-			requeue = time.Second
-		}
 	}
 
 	return
