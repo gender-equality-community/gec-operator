@@ -34,11 +34,11 @@ spec:
         name: my-test-cluster-gec-processor
         resources:
           limits:
-            cpu: 1
-            memory: 4Gi
+            cpu: 200m
+            memory: 128Mi
           requests:
-            cpu: 1
-            memory: 4Gi
+            cpu: 200m
+            memory: 128Mi
         securityContext:
           capabilities:
             drop:
