@@ -44,8 +44,8 @@ var (
 
 	// Data resources are used for containers which perform data-y
 	// tasks, such as taggers and labelers
-	dataCpu = resource.MustParse("1")
-	dataMem = resource.MustParse("4Gi")
+	dataCpu = resource.MustParse("200m")
+	dataMem = resource.MustParse("128Mi")
 )
 
 func (c ClusterApp) String() string {
