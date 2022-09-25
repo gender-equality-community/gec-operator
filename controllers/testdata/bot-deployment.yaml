@@ -51,7 +51,6 @@ spec:
             type: RuntimeDefault
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
-        tty: true
         volumeMounts:
         - mountPath: /database/
           name: my-test-cluster-gec-bot
