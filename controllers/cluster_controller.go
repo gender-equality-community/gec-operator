@@ -99,7 +99,7 @@ func (r *ClusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 	})
 	requeue, err = ConfigMap(ctx, r.Client, r.Scheme, app, appv1alpha1.ClusterMeta, GecMetaLabels(app), nil)
 
-	return ctrl.Result{RequeueAfter: requeue}, nil
+	return ctrl.Result{RequeueAfter: requeue}, err
 }
 
 func (r *ClusterReconciler) Upsert(ctx context.Context, upserters []upserter, ca appv1alpha1.ClusterApp, app *appv1alpha1.Cluster, labels, selectors, config map[string]string) (requeue time.Duration, err error) {
