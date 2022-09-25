@@ -21,7 +21,6 @@ func GecBotSelectors(app *appv1alpha1.Cluster) map[string]string {
 func GecBotLabels(app *appv1alpha1.Cluster) map[string]string {
 	l := GecBotSelectors(app)
 	l["version"] = app.Spec.Bot.Version
-	l["sbom"] = app.Spec.Bot.SBOM()
 
 	return l
 }

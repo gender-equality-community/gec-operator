@@ -21,6 +21,7 @@ import (
 
 var (
 	Project string
+	Version string
 )
 
 type upserter func(context.Context, client.Client, *runtime.Scheme, *deploymentv1alpha1.Cluster, deploymentv1alpha1.ClusterApp, map[string]string, map[string]string) (time.Duration, error)

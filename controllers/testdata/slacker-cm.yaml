@@ -4,7 +4,6 @@ metadata:
   labels:
     app: gec-slacker
     cluster: my-test-cluster
-    sbom: https://github.com/gender-equality-community/gec-slacker/releases/download/v0.0.3/bom.json
     version: v0.0.3
   name: my-test-cluster-gec-slacker
   namespace: testing

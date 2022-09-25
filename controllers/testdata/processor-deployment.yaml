@@ -2,7 +2,6 @@ metadata:
   labels:
     app: gec-processor
     cluster: my-test-cluster
-    sbom: https://github.com/gender-equality-community/gec-processor/releases/download/v0.0.2/bom.json
     version: v0.0.2
   name: my-test-cluster
   namespace: testing
@@ -17,7 +16,6 @@ spec:
       labels:
         app: gec-processor
         cluster: my-test-cluster
-        sbom: https://github.com/gender-equality-community/gec-processor/releases/download/v0.0.2/bom.json
         version: v0.0.2
     spec:
       automountServiceAccountToken: false

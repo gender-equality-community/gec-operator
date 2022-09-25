@@ -14,6 +14,7 @@ const (
 	ClusterBot
 	ClusterProcessor
 	ClusterSlacker
+	ClusterMeta
 )
 
 const (
@@ -57,6 +58,9 @@ func (c ClusterApp) String() string {
 
 	case ClusterSlacker:
 		return "gec-slacker"
+
+	case ClusterMeta:
+		return "meta"
 
 	default:
 		return "unknown"

@@ -2,7 +2,6 @@ metadata:
   labels:
     app: gec-bot
     cluster: my-test-cluster
-    sbom: https://github.com/gender-equality-community/gec-bot/releases/download/v0.0.1/bom.json
     version: v0.0.1
   name: my-test-cluster
   namespace: testing
@@ -17,7 +16,6 @@ spec:
       labels:
         app: gec-bot
         cluster: my-test-cluster
-        sbom: https://github.com/gender-equality-community/gec-bot/releases/download/v0.0.1/bom.json
         version: v0.0.1
     spec:
       automountServiceAccountToken: false

@@ -20,7 +20,6 @@ func GecSlackerSelectors(app *appv1alpha1.Cluster) map[string]string {
 func GecSlackerLabels(app *appv1alpha1.Cluster) map[string]string {
 	l := GecSlackerSelectors(app)
 	l["version"] = app.Spec.Slacker.Version
-	l["sbom"] = app.Spec.Slacker.SBOM()
 
 	return l
 }

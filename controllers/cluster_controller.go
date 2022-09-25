@@ -88,6 +88,17 @@ func (r *ClusterReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 
 	requeue, err = r.Upsert(ctx, gecSlackerUpserters, appv1alpha1.ClusterSlacker, app, GecSlackerSelectors(app), GecSlackerLabels(app), map[string]string{"REDIS_ADDR": app.Spec.Config.RedisURL, "INCOMING_STREAM": "gec-processed", "OUTGOING_STREAM": "gec-responses"})
 
+	// Write final status
+	ctx = context.WithValue(ctx, "config", map[string]string{
+		"bot_sbom":       app.Spec.Bot.SBOM(),
+		"processor_sbom": app.Spec.Processor.SBOM(),
+		"slacker_bom":    app.Spec.Slacker.SBOM(),
+		"last_deploy":    time.Now().String(),
+		"version":        Version,
+		"project":        Project,
+	})
+	requeue, err = ConfigMap(ctx, r.Client, r.Scheme, app, appv1alpha1.ClusterMeta, GecMetaLabels(app), nil)
+
 	return ctrl.Result{RequeueAfter: requeue}, nil
 }
 

@@ -20,7 +20,6 @@ func GecProcessorSelectors(app *appv1alpha1.Cluster) map[string]string {
 func GecProcessorLabels(app *appv1alpha1.Cluster) map[string]string {
 	l := GecProcessorSelectors(app)
 	l["version"] = app.Spec.Processor.Version
-	l["sbom"] = app.Spec.Processor.SBOM()
 
 	return l
 }
