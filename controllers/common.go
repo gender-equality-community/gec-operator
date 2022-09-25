@@ -141,18 +141,18 @@ func configmap(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterApp
 }
 
 func Deployment(ctx context.Context, c client.Client, s *runtime.Scheme, app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterApp, labels, selectors map[string]string) (requeue time.Duration, err error) {
-	p := pvc(app, ca, labels)
+	d := deployment(app, ca, labels, selectors)
 
-	err = ctrl.SetControllerReference(app, p, s)
+	err = ctrl.SetControllerReference(app, d, s)
 	if err != nil {
 		return
 	}
 
-	found := &corev1.PersistentVolumeClaim{}
+	found := &appsv1.Deployment{}
 
-	err = c.Get(ctx, types.NamespacedName{Name: p.Name, Namespace: app.Namespace}, found)
+	err = c.Get(ctx, types.NamespacedName{Name: d.Name, Namespace: app.Namespace}, found)
 	if err != nil && errors.IsNotFound(err) {
-		err = c.Create(ctx, p)
+		err = c.Create(ctx, d)
 		if err != nil {
 			return
 		}
@@ -160,11 +160,11 @@ func Deployment(ctx context.Context, c client.Client, s *runtime.Scheme, app *de
 		return
 	}
 
-	if !reflect.DeepEqual(found.Spec, p.Spec) {
-		diff := cmp.Diff(found.Spec, p.Spec)
+	if !reflect.DeepEqual(found.Spec.Template.Spec, d.Spec.Template.Spec) {
+		diff := cmp.Diff(found.Spec.Template.Spec, d.Spec.Template.Spec)
 		fmt.Println(diff)
 
-		err = c.Update(ctx, p)
+		err = c.Update(ctx, d)
 		if err == nil {
 			requeue = time.Second
 		}
