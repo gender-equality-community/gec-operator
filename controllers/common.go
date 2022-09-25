@@ -33,6 +33,10 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	fmt.Printf("Project: %q\n", Project)
+	fmt.Printf("Version: %q\n", Version)
+	fmt.Println("--------")
 }
 
 func getenv(v string) (s string, err error) {
