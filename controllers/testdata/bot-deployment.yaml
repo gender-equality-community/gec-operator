@@ -24,16 +24,16 @@ spec:
       containers:
       - envFrom:
         - configMapRef:
-            name: my-test-cluster_gec-bot
+            name: my-test-cluster-gec-bot
         - configMapRef:
-            name: my-test-cluster_gec-bot-override
+            name: my-test-cluster-gec-bot-override
             optional: true
         - secretRef:
-            name: my-test-cluster_gec-bot-override
+            name: my-test-cluster-gec-bot-override
             optional: true
         image: 'ghcr.io/gender-equality-community/gec-bot:v0.0.1'
         imagePullPolicy: IfNotPresent
-        name: my-test-cluster_gec-bot
+        name: my-test-cluster-gec-bot
         resources:
           limits:
             cpu: 100m
@@ -56,7 +56,7 @@ spec:
         tty: true
         volumeMounts:
         - mountPath: /database/
-          name: my-test-cluster_gec-bot
+          name: my-test-cluster-gec-bot
       dnsPolicy: ClusterFirst
       enableServiceLinks: false
       restartPolicy: Always
@@ -65,6 +65,6 @@ spec:
       serviceAccountName: my-test-cluster
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: my-test-cluster_gec-bot
+      - name: my-test-cluster-gec-bot
         persistentVolumeClaim:
-          claimName: my-test-cluster_gec-bot
+          claimName: my-test-cluster-gec-bot

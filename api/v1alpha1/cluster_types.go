@@ -112,7 +112,7 @@ type Cluster struct {
 }
 
 func (c Cluster) InClusterName(ca ClusterApp) string {
-	return fmt.Sprintf("%s_%s", c.ObjectMeta.Name, ca.String())
+	return fmt.Sprintf("%s-%s", c.ObjectMeta.Name, ca.String())
 }
 
 func (c Cluster) InClusterImage(ca ClusterApp) string {

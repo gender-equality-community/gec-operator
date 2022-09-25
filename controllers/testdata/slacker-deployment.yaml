@@ -24,16 +24,16 @@ spec:
       containers:
       - envFrom:
         - configMapRef:
-            name: my-test-cluster_gec-slacker
+            name: my-test-cluster-gec-slacker
         - configMapRef:
-            name: my-test-cluster_gec-slacker-override
+            name: my-test-cluster-gec-slacker-override
             optional: true
         - secretRef:
-            name: my-test-cluster_gec-slacker-override
+            name: my-test-cluster-gec-slacker-override
             optional: true
         image: 'ghcr.io/gender-equality-community/gec-slacker:v0.0.3'
         imagePullPolicy: IfNotPresent
-        name: my-test-cluster_gec-slacker
+        name: my-test-cluster-gec-slacker
         resources:
           limits:
             cpu: 100m

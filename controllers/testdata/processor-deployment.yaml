@@ -24,16 +24,16 @@ spec:
       containers:
       - envFrom:
         - configMapRef:
-            name: my-test-cluster_gec-processor
+            name: my-test-cluster-gec-processor
         - configMapRef:
-            name: my-test-cluster_gec-processor-override
+            name: my-test-cluster-gec-processor-override
             optional: true
         - secretRef:
-            name: my-test-cluster_gec-processor-override
+            name: my-test-cluster-gec-processor-override
             optional: true
         image: 'ghcr.io/gender-equality-community/gec-processor:v0.0.2'
         imagePullPolicy: IfNotPresent
-        name: my-test-cluster_gec-processor
+        name: my-test-cluster-gec-processor
         resources:
           limits:
             cpu: 1
