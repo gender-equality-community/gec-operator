@@ -187,7 +187,7 @@ func deployment(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterAp
 
 	return &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      app.Name,
+			Name:      app.InClusterName(ca),
 			Namespace: app.Namespace,
 			Labels:    labels,
 		},
@@ -201,7 +201,7 @@ func deployment(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterAp
 					Labels: labels,
 				},
 				Spec: corev1.PodSpec{
-					ServiceAccountName: app.Name,
+					ServiceAccountName: app.InClusterName(ca),
 					Containers: []corev1.Container{{
 						Image: app.InClusterImage(ca),
 						Name:  app.InClusterName(ca),
@@ -255,7 +255,7 @@ func deployment(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterAp
 					RestartPolicy:                 corev1.RestartPolicyAlways,
 					TerminationGracePeriodSeconds: &terminationGrace,
 					DNSPolicy:                     corev1.DNSClusterFirst,
-					DeprecatedServiceAccount:      app.Name,
+					DeprecatedServiceAccount:      app.InClusterName(ca),
 					SecurityContext:               &corev1.PodSecurityContext{},
 					SchedulerName:                 "default-scheduler",
 					Volumes:                       ca.Volume(app.InClusterName(ca)),

@@ -3,7 +3,7 @@ metadata:
     app: gec-slacker
     cluster: my-test-cluster
     version: v0.0.3
-  name: my-test-cluster
+  name: my-test-cluster-gec-slacker
   namespace: testing
 spec:
   replicas: 1
@@ -56,6 +56,6 @@ spec:
       enableServiceLinks: false
       restartPolicy: Always
       schedulerName: default-scheduler
-      serviceAccount: my-test-cluster
-      serviceAccountName: my-test-cluster
+      serviceAccount: my-test-cluster-gec-slacker
+      serviceAccountName: my-test-cluster-gec-slacker
       terminationGracePeriodSeconds: 30

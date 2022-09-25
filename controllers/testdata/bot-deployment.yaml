@@ -59,8 +59,8 @@ spec:
       enableServiceLinks: false
       restartPolicy: Always
       schedulerName: default-scheduler
-      serviceAccount: my-test-cluster
-      serviceAccountName: my-test-cluster
+      serviceAccount: my-test-cluster-gec-bot
+      serviceAccountName: my-test-cluster-gec-bot
       terminationGracePeriodSeconds: 30
       volumes:
       - name: my-test-cluster-gec-bot

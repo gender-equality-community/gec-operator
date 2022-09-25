@@ -3,7 +3,7 @@ metadata:
     app: gec-processor
     cluster: my-test-cluster
     version: v0.0.2
-  name: my-test-cluster
+  name: my-test-cluster-gec-processor
   namespace: testing
 spec:
   replicas: 1
@@ -56,6 +56,6 @@ spec:
       enableServiceLinks: false
       restartPolicy: Always
       schedulerName: default-scheduler
-      serviceAccount: my-test-cluster
-      serviceAccountName: my-test-cluster
+      serviceAccount: my-test-cluster-gec-processor
+      serviceAccountName: my-test-cluster-gec-processor
       terminationGracePeriodSeconds: 30
