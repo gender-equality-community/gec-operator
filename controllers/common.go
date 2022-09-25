@@ -236,7 +236,7 @@ func deployment(app *deploymentv1alpha1.Cluster, ca deploymentv1alpha1.ClusterAp
 						},
 						TerminationMessagePath:   "/dev/termination-log",
 						TerminationMessagePolicy: corev1.TerminationMessageReadFile,
-						TTY:                      true,
+						TTY:                      false,
 						ImagePullPolicy:          corev1.PullIfNotPresent,
 						SecurityContext: &corev1.SecurityContext{
 							ReadOnlyRootFilesystem: &trueVal,
